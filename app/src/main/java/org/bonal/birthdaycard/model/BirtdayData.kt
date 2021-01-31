@@ -4,6 +4,7 @@ private const val LOCAL_VIDEO_URL = "asset:///test.mp4"
 private const val REMOTE_VIDEO_URL =
     "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 private const val REMOTE_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Boris_Johnson_official_portrait_%28cropped%29.jpg/440px-Boris_Johnson_official_portrait_%28cropped%29.jpg"
+private const val REMOTE_HTTP_IMAGE_URL = "http://olivier.bonal.free.fr/mobile/birthday-card/guests/olivier.jpg"
 
 data class BirthdayData(
     val birthdayHost: BirthdayHost,
@@ -12,11 +13,11 @@ data class BirthdayData(
 )
 
 val defaultBirthdayData = BirthdayData(
-    birthdayHost = BirthdayHost(name = "Birthday boy", pictureUrl = REMOTE_IMAGE_URL),
+    birthdayHost = BirthdayHost(name = "Birthday boy", pictureUrl = REMOTE_HTTP_IMAGE_URL),
     guestList = listOf(
         BirthdayGuest(
             name = "Guest A",
-            pictureUrl = "asset:///olivier.jpg",
+            pictureUrl = REMOTE_IMAGE_URL,
             message = "Joyeux anniversaire mon ami!",
             video = "REMOTE_VIDEO_URL"
         ),
@@ -28,7 +29,7 @@ val defaultBirthdayData = BirthdayData(
         ),
         BirthdayGuest(
             name = "Guest B",
-            pictureUrl = REMOTE_IMAGE_URL
+            pictureUrl = REMOTE_HTTP_IMAGE_URL
         ),
         BirthdayGuest(
             name = "Guest C",

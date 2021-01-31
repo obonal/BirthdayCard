@@ -99,10 +99,10 @@ private fun BirthdayCardHeader(birthdayData: BirthdayData) {
                         }
                     },
                     error = {
-                        PlaceHolderImage(imageModifier, R.drawable.ic_guest)
+                        PlaceHolderImage(imageModifier)
                     }
                 )
-            } ?: PlaceHolderImage(imageModifier, R.drawable.ic_guest)
+            } ?: PlaceHolderImage(imageModifier)
 
             Text(
                 stringResource(R.string.birthday_card_title, birthdayHost.name),
