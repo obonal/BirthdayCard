@@ -68,7 +68,10 @@ fun BirthdayGuestCard(
                 } ?: PlaceHolderImage(imageModifier, R.drawable.ic_guest)
                 Column {
                     Text(cardModel.name, style = MaterialTheme.typography.h6)
-                    Text(cardModel.message, style = MaterialTheme.typography.body1)
+                    val message = cardModel.message
+                    if (message != null) {
+                        Text(message, style = MaterialTheme.typography.body1)
+                    }
                 }
             }
             if (cardModel.hasActions()) {
@@ -129,7 +132,7 @@ fun GuestCardPreview() {
     BirthdayGuestCard(
         cardModel = BirthdayGuestCardModel(
             name = "Birthday Boy",
-            pictureUrl = "asset:///olivier.jpg",
+            message = "Happy Birthday",
             video = "an non empty video url"
         )
     )

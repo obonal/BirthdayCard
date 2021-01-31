@@ -1,10 +1,8 @@
 package org.bonal.birthdaycard.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import org.bonal.birthdaycard.data.BirthdayRepository
 import org.bonal.birthdaycard.model.*
 import javax.inject.Inject
@@ -27,12 +25,19 @@ class BirthdayViewModel @Inject constructor(
     private val _birthdayCardMessage = MutableLiveData<String>()
     val birthdayCardMessage: LiveData<String> = _birthdayCardMessage
 
-    fun loadBirthdayData() {
-        val birthdayData = birthdayRepository.getBirtdayData()
-        _birthdayHost.value = birthdayData.birthdayHost
-        _guestList.value = birthdayData.guestList
-        _birthdayCardMessage.value = birthdayData.birthdayCardMessage
-    }
+    fun loadBirthdayData() =
+        viewModelScope.launch {
+            try {
+                val birthdayData = birthdayRepository.getBirthdayData()
+                _birthdayHost.value = birthdayData.birthdayHost
+                _guestList.value = birthdayData.guestList
+                _birthdayCardMessage.value = birthdayData.birthdayCardMessage
+            } catch (t: Throwable) {
+                // TODO: Better error handling + loading too :-)
+                _guestList.value = emptyList()
+                _birthdayCardMessage.value = t.localizedMessage
+            }
+        }
 
 }
 

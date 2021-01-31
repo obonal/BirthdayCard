@@ -19,9 +19,16 @@ android {
     }
 
     buildTypes {
-        release {
+        def SERVER_BASE_URL = "SERVER_BASE_URL"
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", SERVER_BASE_URL, birthday_card_info_base_url
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", SERVER_BASE_URL, birthday_card_info_base_url
         }
     }
     compileOptions {
@@ -58,6 +65,8 @@ dependencies {
     implementation "dev.chrisbanes.accompanist:accompanist-glide:$accompanist_glide_version"
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    implementation "com.squareup.retrofit2:converter-moshi:$moshi_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 

@@ -2,20 +2,22 @@ package org.bonal.birthdaycard
 
 import android.content.Intent
 import android.net.Uri
+import kotlin.text.StringBuilder
 
 class WhatsAppIntentCreator(private val defaultMessage: String? = null) {
 
     fun createWhatsAppMessageIntent(
         phoneNumber: String?,
         message: String? = defaultMessage
-    ): Intent? {
-        if (phoneNumber != null) {
-            val whatsAppLink =
-                Uri.parse("https://wa.me/$phoneNumber?text=$message")
-            return Intent(Intent.ACTION_VIEW, whatsAppLink).apply {
-                setPackage("com.whatsapp")
-            }
+    ): Intent? = phoneNumber?.let { number ->
+        val builder: StringBuilder = StringBuilder("https://wa.me/$number")
+        if (message != null) {
+            builder.append("?text=$message")
         }
-        return null
+        val whatsAppLink = Uri.parse(builder.toString())
+        return Intent(Intent.ACTION_VIEW, whatsAppLink).apply {
+            setPackage("com.whatsapp")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+        }
     }
 }
