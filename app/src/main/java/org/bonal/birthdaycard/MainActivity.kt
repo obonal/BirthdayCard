@@ -20,10 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         birthdayViewModel.loadBirthdayData()
         setContent {
-            HomePage(
-                viewModel = birthdayViewModel,
-                messageSender = messageSender
-            )
+            HomePage(viewModel = birthdayViewModel)
         }
     }
 }

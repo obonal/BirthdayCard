@@ -16,15 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
-import org.bonal.birthdaycard.FakeMessageSender
-import org.bonal.birthdaycard.MessageSender
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayGuest
 
 @Composable
 fun BirthdayGuestCard(
     guest: BirthdayGuest,
-    messageSender: MessageSender
+    secondaryAction: GuestCardAction? = null
 ) {
 
     // expanded is "internal state" for BirthdayGuestCard
@@ -70,7 +68,7 @@ fun BirthdayGuestCard(
                 }
             }
             if (guest.hasActions()) {
-                ButtonRow(padding, guest, messageSender, expandedState)
+                ButtonRow(padding, guest, secondaryAction, expandedState)
             }
             if (expandedState.value) {
                 VideoPlayer(videoUrl = guest.video!!)
@@ -83,7 +81,7 @@ fun BirthdayGuestCard(
 private fun ButtonRow(
     padding: Dp,
     guest: BirthdayGuest,
-    messageSender: MessageSender,
+    secondaryAction: GuestCardAction?,
     expandedState: MutableState<Boolean>
 ) {
     Row(
@@ -109,11 +107,11 @@ private fun ButtonRow(
                 )
             }
         }
-        if (guest.phoneNumber != null) {
+        if (secondaryAction != null) {
             Button(modifier = buttonModifier,
-                onClick = { messageSender.sendMessage(guest.phoneNumber) }) {
+                onClick = { secondaryAction.performAction(guest) }) {
                 Text(
-                    text = messageSender.messengerLabel,
+                    text = secondaryAction.actionLabel,
                     style = MaterialTheme.typography.button
                 )
             }
@@ -130,9 +128,13 @@ fun GuestCardPreview() {
         guest = BirthdayGuest(
             name = "Birthday Boy",
             pictureUrl = "asset:///olivier.jpg",
-            phoneNumber = "A non empty number",
             video = "an non empty video url"
         ),
-        messageSender = FakeMessageSender()
+        secondaryAction = GuestCardAction("Message") {}
     )
 }
+
+class GuestCardAction(
+    val actionLabel: String,
+    val performAction: (BirthdayGuest) -> Unit
+)

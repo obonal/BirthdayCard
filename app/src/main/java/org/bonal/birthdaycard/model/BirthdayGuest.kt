@@ -1,7 +1,5 @@
 package org.bonal.birthdaycard.model
 
-import androidx.annotation.DrawableRes
-
 data class BirthdayGuest(
     val name: String,
     val message: String = "Happy Birthday!",
