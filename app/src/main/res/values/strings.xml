@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Happy Birthday!</string>
-    <string name="birthday_card_body">We thought we would celebrate your birthday by sending you some nice messages. Check what your friends have to say…</string>
+    <string name="app_name">Birthday</string>
     <string name="birthday_card_title">Happy birthday %1$s!!!</string>
     <string name="default_whatsapp_message">Thank you for your message!</string>
     <string name="play_video_button_label">Play Video</string>
