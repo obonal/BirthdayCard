@@ -2,7 +2,6 @@ package org.bonal.birthdaycard.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.onDispose
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.viewinterop.AndroidViewBinding
@@ -18,8 +17,7 @@ fun VideoPlayer(videoUrl: String) {
     // Do not recreate the player everytime this Composable commits
     val exoPlayer = remember { SimpleExoPlayer.Builder(context).build() }
 
-//    DisposableEffect(Unit) { onDispose(onDisposeEffect = { exoPlayer.stop() }) }
-    onDispose(callback = { exoPlayer.stop() })
+    DisposableEffect(Unit) { onDispose(onDisposeEffect = { exoPlayer.stop() }) }
 
     // Gateway to legacy Android Views through XML inflation.
     AndroidViewBinding(VideoPlayerLayoutBinding::inflate) {
