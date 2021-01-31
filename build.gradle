@@ -1,0 +1,30 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        compose_version = '1.0.0-alpha10'
+    }
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.0-alpha05"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
+        // Check the latest SNAPSHOT version from the link above
+//        classpath 'dev.chrisbanes.accompanist:accompanist-glide:0.4.3-SNAPSHOT'
+//        classpath 'dev.chrisbanes.accompanist:accompanist-coil:0.5.1-SNAPSHOT'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
