@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
+import org.bonal.birthdaycard.FakeMessageSender
 import org.bonal.birthdaycard.MessageSender
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayGuest
@@ -112,7 +113,7 @@ private fun ButtonRow(
             Button(modifier = buttonModifier,
                 onClick = { messageSender.sendMessage(guest.phoneNumber) }) {
                 Text(
-                    stringResource(R.string.whatsapp_button_label),
+                    text = messageSender.messengerLabel,
                     style = MaterialTheme.typography.button
                 )
             }
@@ -132,9 +133,6 @@ fun GuestCardPreview() {
             phoneNumber = "A non empty number",
             video = "an non empty video url"
         ),
-        messageSender = object : MessageSender {
-            override fun sendMessage(phoneNumber: String?, message: String?) {
-            }
-        }
+        messageSender = FakeMessageSender()
     )
 }

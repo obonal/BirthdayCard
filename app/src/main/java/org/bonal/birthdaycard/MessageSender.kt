@@ -6,8 +6,13 @@ import javax.inject.Inject
 
 interface MessageSender {
     fun sendMessage(phoneNumber: String?, message: String? = null)
+    val messengerLabel: String
 }
 
+class FakeMessageSender : MessageSender {
+    override fun sendMessage(phoneNumber: String?, message: String?) = Unit
+    override val messengerLabel: String = "Message"
+}
 
 class WhatsAppMessageSender @Inject constructor(@ActivityContext private val context: Context) :
     MessageSender {
@@ -20,5 +25,8 @@ class WhatsAppMessageSender @Inject constructor(@ActivityContext private val con
             context.startActivity(it)
         }
     }
+
+    override val messengerLabel: String
+        get() = context.getString(R.string.whatsapp_messenger_label)
 
 }

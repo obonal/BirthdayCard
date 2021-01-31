@@ -5,5 +5,5 @@
     <string name="default_whatsapp_message">Thank you for your message!</string>
     <string name="play_video_button_label">Play Video</string>
     <string name="stop_video_button_label">Stop Video</string>
-    <string name="whatsapp_button_label">WhatsApp</string>
+    <string name="whatsapp_messenger_label">WhatsApp</string>
 </resources>

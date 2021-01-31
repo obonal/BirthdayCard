@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
+import org.bonal.birthdaycard.FakeMessageSender
 import org.bonal.birthdaycard.MessageSender
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayData
@@ -123,9 +124,6 @@ private fun BirthdayCardHeader(birthdayData: BirthdayData) {
 fun HomePagePreview() {
     HomePage(
         birthdayData = defaultBirthdayData,
-        messageSender = object : MessageSender {
-            override fun sendMessage(phoneNumber: String?, message: String?) {
-            }
-        }
+        messageSender = FakeMessageSender()
     )
 }
