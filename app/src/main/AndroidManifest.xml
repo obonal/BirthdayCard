@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:fullBackupContent="false"
+        android:name=".BirthdayCardApplication"
         android:theme="@style/Theme.BirthdayCard">
         <activity
             android:name="org.bonal.birthdaycard.MainActivity"
