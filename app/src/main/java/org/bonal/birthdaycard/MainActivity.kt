@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import org.bonal.birthdaycard.component.HomePage
+import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint

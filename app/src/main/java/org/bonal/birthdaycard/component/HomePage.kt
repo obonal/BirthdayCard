@@ -17,11 +17,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
-import org.bonal.birthdaycard.BirthdayViewModel
+import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.model.BirthdayGuest
 import org.bonal.birthdaycard.model.BirthdayHost
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
+import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
 
 @Composable
 fun HomePage(viewModel: BirthdayViewModel) {
@@ -51,7 +51,7 @@ private fun BirthdayFeed(
     viewModel: BirthdayViewModel
 ) {
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
-    val guestList: List<BirthdayGuest> by viewModel.guestList.observeAsState(emptyList())
+    val guestList: List<BirthdayGuestCardModel> by viewModel.guestList.observeAsState(emptyList())
     val birthdayCardMessage: String by viewModel.birthdayCardMessage.observeAsState("")
 
     rememberScrollState(0f)
@@ -61,7 +61,7 @@ private fun BirthdayFeed(
         item {
             BirthdayCardHeader(birthdayHost, birthdayCardMessage)
             guestList.forEach {
-                BirthdayGuestCard(it, viewModel.getSecondaryGuestCardAction(it))
+                BirthdayGuestCard(it)
             }
         }
     }

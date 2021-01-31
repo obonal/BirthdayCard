@@ -17,12 +17,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.model.BirthdayGuest
+import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
 
 @Composable
 fun BirthdayGuestCard(
-    guest: BirthdayGuest,
-    secondaryAction: GuestCardAction? = null
+    cardModel: BirthdayGuestCardModel,
 ) {
 
     // expanded is "internal state" for BirthdayGuestCard
@@ -47,10 +46,10 @@ fun BirthdayGuestCard(
                 .preferredSize(50.dp, 50.dp)
                 .clip(MaterialTheme.shapes.medium)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                guest.pictureUrl?.let {
+                cardModel.pictureUrl?.let {
                     GlideImage(
-                        data = guest.pictureUrl,
-                        contentDescription = guest.name,
+                        data = cardModel.pictureUrl,
+                        contentDescription = cardModel.name,
                         modifier = imageModifier,
                         contentScale = ContentScale.Crop,
                         loading = {
@@ -62,21 +61,21 @@ fun BirthdayGuestCard(
                             PlaceHolderImage(
                                 modifier = imageModifier,
                                 vectorIconRes = R.drawable.ic_guest,
-                                contentDescription = guest.name
+                                contentDescription = cardModel.name
                             )
                         }
                     )
                 } ?: PlaceHolderImage(imageModifier, R.drawable.ic_guest)
                 Column {
-                    Text(guest.name, style = MaterialTheme.typography.h6)
-                    Text(guest.message, style = MaterialTheme.typography.body1)
+                    Text(cardModel.name, style = MaterialTheme.typography.h6)
+                    Text(cardModel.message, style = MaterialTheme.typography.body1)
                 }
             }
-            if (guest.hasActions()) {
-                ButtonRow(padding, guest, secondaryAction, expandedState)
+            if (cardModel.hasActions()) {
+                ButtonRow(padding, cardModel, expandedState)
             }
             if (expandedState.value) {
-                VideoPlayer(videoUrl = guest.video!!)
+                VideoPlayer(videoUrl = cardModel.video!!)
             }
         }
     }
@@ -85,8 +84,7 @@ fun BirthdayGuestCard(
 @Composable
 private fun ButtonRow(
     padding: Dp,
-    guest: BirthdayGuest,
-    secondaryAction: GuestCardAction?,
+    cardModel: BirthdayGuestCardModel,
     expandedState: MutableState<Boolean>
 ) {
     Row(
@@ -98,7 +96,7 @@ private fun ButtonRow(
         val buttonModifier = Modifier
             .weight(1f)
             .padding(2.dp)
-        if (guest.video != null) {
+        if (cardModel.video != null) {
             val videoButtonLabel = if (expandedState.value) {
                 stringResource(R.string.stop_video_button_label)
             } else {
@@ -112,9 +110,10 @@ private fun ButtonRow(
                 )
             }
         }
+        val secondaryAction = cardModel.secondaryAction
         if (secondaryAction != null) {
             Button(modifier = buttonModifier,
-                onClick = { secondaryAction.performAction(guest) }) {
+                onClick = { secondaryAction.performAction() }) {
                 Text(
                     text = secondaryAction.actionLabel,
                     style = MaterialTheme.typography.button
@@ -124,22 +123,19 @@ private fun ButtonRow(
     }
 }
 
-private fun BirthdayGuest.hasActions(): Boolean = this.video != null || this.phoneNumber != null
-
 @Preview(showBackground = true)
 @Composable
 fun GuestCardPreview() {
     BirthdayGuestCard(
-        guest = BirthdayGuest(
+        cardModel = BirthdayGuestCardModel(
             name = "Birthday Boy",
             pictureUrl = "asset:///olivier.jpg",
             video = "an non empty video url"
-        ),
-        secondaryAction = GuestCardAction("Message") {}
+        )
     )
 }
 
 class GuestCardAction(
     val actionLabel: String,
-    val performAction: (BirthdayGuest) -> Unit
+    val performAction: () -> Unit
 )
