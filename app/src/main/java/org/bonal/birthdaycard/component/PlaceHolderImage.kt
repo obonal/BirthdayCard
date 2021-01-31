@@ -10,10 +10,12 @@ import org.bonal.birthdaycard.R
 
 @Composable
 fun PlaceHolderImage(modifier: Modifier,
-                     @DrawableRes vectorIconRes: Int = R.drawable.ic_launcher_foreground
+                     @DrawableRes vectorIconRes: Int = R.drawable.ic_launcher_foreground,
+                     contentDescription: String? = null
 ) {
     Image(
         modifier = modifier,
+        contentDescription = contentDescription,
         imageVector = vectorResource(id = vectorIconRes),
         contentScale = ContentScale.Crop
     )

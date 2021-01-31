@@ -50,6 +50,7 @@ fun BirthdayGuestCard(
                 guest.pictureUrl?.let {
                     GlideImage(
                         data = guest.pictureUrl,
+                        contentDescription = guest.name,
                         modifier = imageModifier,
                         contentScale = ContentScale.Crop,
                         loading = {
@@ -58,7 +59,11 @@ fun BirthdayGuestCard(
                             }
                         },
                         error = {
-                            PlaceHolderImage(imageModifier, R.drawable.ic_guest)
+                            PlaceHolderImage(
+                                modifier = imageModifier,
+                                vectorIconRes = R.drawable.ic_guest,
+                                contentDescription = guest.name
+                            )
                         }
                     )
                 } ?: PlaceHolderImage(imageModifier, R.drawable.ic_guest)

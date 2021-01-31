@@ -67,7 +67,6 @@ private fun BirthdayFeed(
     }
 }
 
-
 @Composable
 private fun BirthdayCardHeader(birthdayHost: BirthdayHost?, message: String) {
     val padding = 16.dp
@@ -92,6 +91,7 @@ private fun BirthdayCardHeader(birthdayHost: BirthdayHost?, message: String) {
                 GlideImage(
                     data = pictureUrl,
                     modifier = imageModifier,
+                    contentDescription = birthdayHost.name,
                     contentScale = ContentScale.Crop,
                     loading = {
                         Box(Modifier.fillMaxSize()) {
