@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Anniversaire</string>
+    <string name="toolbar_title">Joyeux anniversaire</string>
     <string name="birthday_card_title">Joyeux anniversaire %1$s!!!</string>
     <string name="default_whatsapp_message">Merci pour ton message!</string>
     <string name="play_video_button_label">Jouer la vidéo</string>

@@ -17,11 +17,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
-import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayHost
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
 import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
+import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 
 @Composable
 fun HomePage(viewModel: BirthdayViewModel) {
@@ -30,7 +30,7 @@ fun HomePage(viewModel: BirthdayViewModel) {
         Surface(color = MaterialTheme.colors.background) {
             Scaffold(
                 topBar = {
-                    val title = stringResource(id = R.string.app_name)
+                    val title = stringResource(id = R.string.toolbar_title)
                     TopAppBar(
                         title = { Text(text = title) }
                     )
@@ -60,9 +60,9 @@ private fun BirthdayFeed(
         // and `items` for lists of identical elements
         item {
             BirthdayCardHeader(birthdayHost, birthdayCardMessage)
-            guestList.forEach {
-                BirthdayGuestCard(it)
-            }
+        }
+        items(guestList.size) { index ->
+            BirthdayGuestCard(guestList[index])
         }
     }
 }

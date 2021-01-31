@@ -74,11 +74,11 @@ fun BirthdayGuestCard(
                     }
                 }
             }
-            if (cardModel.hasActions()) {
-                ButtonRow(padding, cardModel, expandedState)
-            }
             if (expandedState.value) {
                 VideoPlayer(videoUrl = cardModel.video!!)
+            }
+            if (cardModel.hasActions()) {
+                ButtonRow(padding, cardModel, expandedState)
             }
         }
     }
@@ -133,7 +133,8 @@ fun GuestCardPreview() {
         cardModel = BirthdayGuestCardModel(
             name = "Birthday Boy",
             message = "Happy Birthday",
-            video = "an non empty video url"
+            video = "an non empty video url",
+            secondaryAction = GuestCardAction("Another action") {}
         )
     )
 }
