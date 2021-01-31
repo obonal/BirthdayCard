@@ -6,6 +6,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -13,20 +15,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
-import org.bonal.birthdaycard.FakeMessageSender
+import org.bonal.birthdaycard.BirthdayViewModel
 import org.bonal.birthdaycard.MessageSender
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.model.BirthdayData
-import org.bonal.birthdaycard.model.defaultBirthdayData
+import org.bonal.birthdaycard.model.BirthdayGuest
+import org.bonal.birthdaycard.model.BirthdayHost
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
 
 @Composable
 fun HomePage(
-    birthdayData: BirthdayData,
-    messageSender: MessageSender
+    messageSender: MessageSender,
+    viewModel: BirthdayViewModel
 ) {
     BirthdayCardTheme {
         // A surface container using the 'background' color from the theme
@@ -40,7 +41,7 @@ fun HomePage(
                 },
                 bodyContent = {
                     BirthdayFeed(
-                        birthdayData = birthdayData,
+                        viewModel = viewModel,
                         messageSender = messageSender
                     )
                 }
@@ -52,24 +53,29 @@ fun HomePage(
 
 @Composable
 private fun BirthdayFeed(
-    birthdayData: BirthdayData,
-    messageSender: MessageSender
+    messageSender: MessageSender,
+    viewModel: BirthdayViewModel
 ) {
+    val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
+    val guestList: List<BirthdayGuest> by viewModel.guestList.observeAsState(emptyList())
+    val birthdayCardMessage: String by viewModel.birthdayCardMessage.observeAsState("")
+
     rememberScrollState(0f)
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         // use `item` for separate elements like headers
         // and `items` for lists of identical elements
         item {
-            BirthdayCardHeader(birthdayData)
-            birthdayData.guestList.forEach {
+            BirthdayCardHeader(birthdayHost, birthdayCardMessage)
+            guestList.forEach {
                 BirthdayGuestCard(it, messageSender)
             }
         }
     }
 }
 
+
 @Composable
-private fun BirthdayCardHeader(birthdayData: BirthdayData) {
+private fun BirthdayCardHeader(birthdayHost: BirthdayHost?, message: String) {
     val padding = 16.dp
     Card(
         Modifier
@@ -88,8 +94,7 @@ private fun BirthdayCardHeader(birthdayData: BirthdayData) {
                 .padding(end = 4.dp)
                 .preferredSize(100.dp, 100.dp)
                 .clip(CircleShape)
-            val birthdayHost = birthdayData.birthdayHost
-            birthdayHost.pictureUrl?.let { pictureUrl ->
+            birthdayHost?.pictureUrl?.let { pictureUrl ->
                 GlideImage(
                     data = pictureUrl,
                     modifier = imageModifier,
@@ -105,25 +110,18 @@ private fun BirthdayCardHeader(birthdayData: BirthdayData) {
                 )
             } ?: PlaceHolderImage(imageModifier)
 
+            birthdayHost?.let {
+                Text(
+                    stringResource(R.string.birthday_card_title, birthdayHost.name),
+                    style = MaterialTheme.typography.h5,
+                    color = Color.White
+                )
+                Spacer(Modifier.preferredSize(padding))
+            }
             Text(
-                stringResource(R.string.birthday_card_title, birthdayHost.name),
-                style = MaterialTheme.typography.h5,
-                color = Color.White
-            )
-            Spacer(Modifier.preferredSize(padding))
-            Text(
-                birthdayData.birthdayCardMessage,
+                text = message,
                 style = MaterialTheme.typography.body1
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomePagePreview() {
-    HomePage(
-        birthdayData = defaultBirthdayData,
-        messageSender = FakeMessageSender()
-    )
 }
