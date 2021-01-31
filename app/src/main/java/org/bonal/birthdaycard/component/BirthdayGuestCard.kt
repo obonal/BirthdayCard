@@ -45,7 +45,7 @@ fun BirthdayGuestCard(
                 .padding(end = 8.dp)
                 .preferredSize(50.dp, 50.dp)
                 .clip(MaterialTheme.shapes.medium)
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.Top) {
                 cardModel.pictureUrl?.let {
                     GlideImage(
                         data = cardModel.pictureUrl,
@@ -132,7 +132,7 @@ fun GuestCardPreview() {
     BirthdayGuestCard(
         cardModel = BirthdayGuestCardModel(
             name = "Birthday Boy",
-            message = "Happy Birthday",
+            message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             video = "an non empty video url",
             secondaryAction = GuestCardAction("Another action") {}
         )
