@@ -33,8 +33,8 @@ fun BirthdayGuestCard(
             .fillMaxWidth()
             .padding(8.dp),
         elevation = 8.dp,
-        backgroundColor = colorResource(id = R.color.purple_200),
-        contentColor = colorResource(id = R.color.white)
+//        backgroundColor = colorResource(id = R.color.purple_200),
+//        contentColor = colorResource(id = R.color.white)
     ) {
         Column(
             modifier = Modifier

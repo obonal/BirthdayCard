@@ -74,8 +74,8 @@ private fun BirthdayCardHeader(birthdayHost: BirthdayHost?, message: String) {
         Modifier
             .fillMaxWidth()
             .padding(8.dp), elevation = 8.dp,
-        backgroundColor = colorResource(id = R.color.purple_200),
-        contentColor = colorResource(id = R.color.white)
+        backgroundColor = MaterialTheme.colors.primary,
+        contentColor = MaterialTheme.colors.onPrimary
     ) {
         Column(
             Modifier
@@ -99,16 +99,15 @@ private fun BirthdayCardHeader(birthdayHost: BirthdayHost?, message: String) {
                         }
                     },
                     error = {
-                        PlaceHolderImage(imageModifier)
+                        PlaceHolderImage(imageModifier, tintColor = MaterialTheme.colors.onPrimary)
                     }
                 )
-            } ?: PlaceHolderImage(imageModifier)
+            } ?: PlaceHolderImage(imageModifier, tintColor = MaterialTheme.colors.onPrimary)
 
             birthdayHost?.let {
                 Text(
                     stringResource(R.string.birthday_card_title, birthdayHost.name),
                     style = MaterialTheme.typography.h5,
-                    color = Color.White
                 )
                 Spacer(Modifier.preferredSize(padding))
             }
