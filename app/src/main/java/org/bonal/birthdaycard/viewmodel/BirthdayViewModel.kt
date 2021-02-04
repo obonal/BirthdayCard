@@ -25,6 +25,9 @@ class BirthdayViewModel @Inject constructor(
     private val _birthdayCardMessage = MutableLiveData<String>()
     val birthdayCardMessage: LiveData<String> = _birthdayCardMessage
 
+    private val _birthdayCardBackground = MutableLiveData<String>()
+    val birthdayCardBackground: LiveData<String> = _birthdayCardBackground
+
     fun loadBirthdayData() =
         viewModelScope.launch {
             try {
@@ -32,6 +35,7 @@ class BirthdayViewModel @Inject constructor(
                 _birthdayHost.value = birthdayData.birthdayHost
                 _guestList.value = birthdayData.guestList
                 _birthdayCardMessage.value = birthdayData.birthdayCardMessage
+                _birthdayCardBackground.value = birthdayData.birthdayCardBackground
             } catch (t: Throwable) {
                 // TODO: Better error handling + loading too :-)
                 _guestList.value = emptyList()

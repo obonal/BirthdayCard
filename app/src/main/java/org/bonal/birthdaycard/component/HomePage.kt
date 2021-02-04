@@ -1,5 +1,6 @@
 package org.bonal.birthdaycard.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -13,10 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.chrisbanes.accompanist.glide.GlideImage
+import androidx.compose.ui.unit.sp
+import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayHost
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
@@ -53,13 +56,16 @@ private fun BirthdayFeed(
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
     val guestList: List<BirthdayGuestCardModel> by viewModel.guestList.observeAsState(emptyList())
     val birthdayCardMessage: String by viewModel.birthdayCardMessage.observeAsState("")
+    val birthdayCardBackground: String by viewModel.birthdayCardBackground.observeAsState("")
 
     rememberScrollState(0f)
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        // use `item` for separate elements like headers
-        // and `items` for lists of identical elements
         item {
-            BirthdayCardHeader(birthdayHost, birthdayCardMessage)
+            BirthdayCardHeader(
+                birthdayHost = birthdayHost,
+                message = birthdayCardMessage,
+                backgroundImage = birthdayCardBackground
+            )
         }
         items(guestList.size) { index ->
             BirthdayGuestCard(guestList[index])
@@ -68,53 +74,121 @@ private fun BirthdayFeed(
 }
 
 @Composable
-private fun BirthdayCardHeader(birthdayHost: BirthdayHost?, message: String) {
-    val padding = 16.dp
+private fun BirthdayCardHeader(
+    birthdayHost: BirthdayHost?,
+    message: String,
+    backgroundImage: String?
+) {
     Card(
         Modifier
-            .fillMaxWidth()
-            .padding(8.dp), elevation = 8.dp,
-        backgroundColor = MaterialTheme.colors.primary,
-        contentColor = MaterialTheme.colors.onPrimary
+            .padding(8.dp)
+            .wrapContentHeight()
+            .fillMaxWidth(),
+        elevation = 8.dp,
+        contentColor = MaterialTheme.colors.onPrimary,
     ) {
-        Column(
-            Modifier
-                .padding(padding)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            val imageModifier = Modifier
-                .padding(end = 4.dp)
-                .preferredSize(100.dp, 100.dp)
-                .clip(CircleShape)
-            birthdayHost?.pictureUrl?.let { pictureUrl ->
-                GlideImage(
-                    data = pictureUrl,
-                    modifier = imageModifier,
-                    contentDescription = birthdayHost.name,
-                    contentScale = ContentScale.Crop,
-                    loading = {
-                        Box(Modifier.fillMaxSize()) {
-                            CircularProgressIndicator(Modifier.align(Alignment.Center))
-                        }
-                    },
-                    error = {
-                        PlaceHolderImage(imageModifier, tintColor = MaterialTheme.colors.onPrimary)
-                    }
-                )
-            } ?: PlaceHolderImage(imageModifier, tintColor = MaterialTheme.colors.onPrimary)
-
-            birthdayHost?.let {
-                Text(
-                    stringResource(R.string.birthday_card_title, birthdayHost.name),
-                    style = MaterialTheme.typography.h5,
-                )
-                Spacer(Modifier.preferredSize(padding))
+        Box(contentAlignment = Alignment.Center) {
+            cardBackgroundImage(backgroundImage)
+            Row(
+                Modifier
+                    .wrapContentHeight()
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Column(
+                    modifier = Modifier.background(semiTransparentBackground()),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
+                    HostSection(birthdayHost)
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(fraction = 0.8f)
+                            .padding(16.dp),
+                        text = message,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.body1
+                    )
+                }
             }
-            Text(
-                text = message,
-                style = MaterialTheme.typography.body1
-            )
         }
     }
+}
+
+@Composable
+private fun cardBackgroundImage(backgroundImage: String?) {
+    backgroundImage ?: return
+    CoilImage(
+        modifier = Modifier
+            .fillMaxSize(),
+        data = backgroundImage,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        alignment = Alignment.Center
+    )
+}
+
+@Composable
+private fun HostSection(birthdayHost: BirthdayHost?) {
+    birthdayHost?.let { host ->
+        val age = host.age
+        val rowModifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+        Row(
+            modifier = rowModifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            if (age % 10 == 0) {
+                val agePrefix = (age / 10).toString()
+                Text(
+                    modifier = Modifier
+                        .padding(end = 4.dp, top = 0.dp),
+                    text = agePrefix,
+                    fontSize = 120.sp
+                )
+            }
+            HostHeroImage(birthdayHost = host)
+        }
+    }
+}
+
+@Composable
+private fun HostHeroImage(birthdayHost: BirthdayHost) {
+    val imageModifier = Modifier
+        .preferredSize(100.dp, 100.dp)
+        .clip(CircleShape)
+    birthdayHost.pictureUrl?.let {
+        CoilImage(
+            data = it,
+            modifier = imageModifier,
+            contentDescription = birthdayHost.name,
+            contentScale = ContentScale.Crop,
+            loading = {
+                Box(Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                }
+            },
+            error = {
+                PlaceHolderImage(
+                    modifier = imageModifier,
+                    tintColor = MaterialTheme.colors.onPrimary
+                )
+            }
+        )
+    } ?: PlaceHolderImage(imageModifier, tintColor = MaterialTheme.colors.onPrimary)
+}
+
+@Composable
+private fun semiTransparentBackground(): Color =
+    MaterialTheme.colors.primary.copy(alpha = 0.2f)
+
+@Preview
+@Composable
+fun HostSectionPreview() {
+    HostSection(
+        birthdayHost = BirthdayHost(name = "Bob", age = 70)
+    )
 }

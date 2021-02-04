@@ -10,12 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import dev.chrisbanes.accompanist.glide.GlideImage
+import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
 
@@ -33,8 +32,6 @@ fun BirthdayGuestCard(
             .fillMaxWidth()
             .padding(8.dp),
         elevation = 8.dp,
-//        backgroundColor = colorResource(id = R.color.purple_200),
-//        contentColor = colorResource(id = R.color.white)
     ) {
         Column(
             modifier = Modifier
@@ -47,7 +44,7 @@ fun BirthdayGuestCard(
                 .clip(MaterialTheme.shapes.medium)
             Row(verticalAlignment = Alignment.Top) {
                 cardModel.pictureUrl?.let {
-                    GlideImage(
+                    CoilImage(
                         data = cardModel.pictureUrl,
                         contentDescription = cardModel.name,
                         modifier = imageModifier,

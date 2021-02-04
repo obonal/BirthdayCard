@@ -62,7 +62,7 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01'
     implementation "androidx.fragment:fragment-ktx:1.2.5"
-    implementation "dev.chrisbanes.accompanist:accompanist-glide:$accompanist_glide_version"
+    implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanist_version"
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
