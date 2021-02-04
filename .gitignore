@@ -87,3 +87,4 @@ lint/tmp/
 /.idea/
 /build/
 .DS_Store
+/app/release/output-metadata.json

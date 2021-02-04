@@ -6,6 +6,17 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+        }
+        release {
+            storeFile file('birthday.keystore')
+            keyAlias 'birthday'
+            storePassword release_password
+            keyPassword release_password
+        }
+    }
     compileSdkVersion 30
 
     defaultConfig {
