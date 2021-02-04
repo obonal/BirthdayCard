@@ -6,4 +6,5 @@
     <string name="play_video_button_label">Play Video</string>
     <string name="stop_video_button_label">Stop Video</string>
     <string name="whatsapp_messenger_label">WhatsApp</string>
+    <string name="title_activity_gallery">Memories…</string>
 </resources>

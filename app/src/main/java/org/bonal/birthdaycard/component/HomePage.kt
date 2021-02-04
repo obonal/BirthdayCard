@@ -1,6 +1,7 @@
 package org.bonal.birthdaycard.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -27,7 +28,7 @@ import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
 import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 
 @Composable
-fun HomePage(viewModel: BirthdayViewModel) {
+fun HomePage(viewModel: BirthdayViewModel, onHostClicked: () -> Unit) {
     BirthdayCardTheme {
         // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
@@ -40,7 +41,8 @@ fun HomePage(viewModel: BirthdayViewModel) {
                 },
                 bodyContent = {
                     BirthdayFeed(
-                        viewModel = viewModel
+                        viewModel = viewModel,
+                        onHostClicked = onHostClicked
                     )
                 }
             )
@@ -51,7 +53,8 @@ fun HomePage(viewModel: BirthdayViewModel) {
 
 @Composable
 private fun BirthdayFeed(
-    viewModel: BirthdayViewModel
+    viewModel: BirthdayViewModel,
+    onHostClicked: () -> Unit
 ) {
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
     val guestList: List<BirthdayGuestCardModel> by viewModel.guestList.observeAsState(emptyList())
@@ -64,7 +67,8 @@ private fun BirthdayFeed(
             BirthdayCardHeader(
                 birthdayHost = birthdayHost,
                 message = birthdayCardMessage,
-                backgroundImage = birthdayCardBackground
+                backgroundImage = birthdayCardBackground,
+                onHostClicked = onHostClicked
             )
         }
         items(guestList.size) { index ->
@@ -77,15 +81,17 @@ private fun BirthdayFeed(
 private fun BirthdayCardHeader(
     birthdayHost: BirthdayHost?,
     message: String,
-    backgroundImage: String?
+    backgroundImage: String?,
+    onHostClicked: () -> Unit
 ) {
     Card(
         Modifier
             .padding(8.dp)
             .wrapContentHeight()
+            .clickable { onHostClicked() }
             .fillMaxWidth(),
         elevation = 8.dp,
-        contentColor = MaterialTheme.colors.onPrimary,
+        contentColor = MaterialTheme.colors.onPrimary
     ) {
         Box(contentAlignment = Alignment.Center) {
             cardBackgroundImage(backgroundImage)

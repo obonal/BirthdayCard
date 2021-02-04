@@ -19,7 +19,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Happy50.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.BirthdayCard.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.Happy50.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.BirthdayCard.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

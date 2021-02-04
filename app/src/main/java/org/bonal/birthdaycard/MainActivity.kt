@@ -1,5 +1,6 @@
 package org.bonal.birthdaycard
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         birthdayViewModel.loadBirthdayData()
         setContent {
-            HomePage(viewModel = birthdayViewModel)
+            HomePage(viewModel = birthdayViewModel) {
+                startActivity(Intent(this, HostGalleryActivity::class.java))
+            }
         }
     }
 }
