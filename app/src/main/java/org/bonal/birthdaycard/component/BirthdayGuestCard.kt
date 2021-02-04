@@ -1,6 +1,7 @@
 package org.bonal.birthdaycard.component
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -40,8 +41,8 @@ fun BirthdayGuestCard(
         ) {
             val imageModifier = Modifier
                 .padding(end = 8.dp)
-                .preferredSize(50.dp, 50.dp)
-                .clip(MaterialTheme.shapes.medium)
+                .preferredSize(75.dp, 75.dp)
+                .clip(CircleShape)
             Row(verticalAlignment = Alignment.Top) {
                 cardModel.pictureUrl?.let {
                     CoilImage(
