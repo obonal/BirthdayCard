@@ -1,7 +1,6 @@
 package org.bonal.birthdaycard.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -88,7 +87,6 @@ private fun BirthdayCardHeader(
         Modifier
             .padding(8.dp)
             .wrapContentHeight()
-            .clickable { onHostClicked() }
             .fillMaxWidth(),
         elevation = 8.dp,
         contentColor = MaterialTheme.colors.onPrimary
@@ -97,13 +95,14 @@ private fun BirthdayCardHeader(
             cardBackgroundImage(backgroundImage)
             Row(
                 Modifier
+                    .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(8.dp),
+                    .background(semiTransparentBackground())
+                    .padding(0.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Column(
-                    modifier = Modifier.background(semiTransparentBackground()),
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
@@ -116,9 +115,26 @@ private fun BirthdayCardHeader(
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1
                     )
+                    MemoriesButton(onHostClicked)
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun MemoriesButton(onHostClicked: () -> Unit) {
+    val buttonModifier = Modifier
+        .fillMaxWidth(0.8f)
+        .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 8.dp)
+    Button(
+        modifier = buttonModifier,
+        onClick = onHostClicked
+    ) {
+        Text(
+            stringResource(id = R.string.show_memories_label),
+            style = MaterialTheme.typography.button
+        )
     }
 }
 
@@ -127,7 +143,8 @@ private fun cardBackgroundImage(backgroundImage: String?) {
     backgroundImage ?: return
     CoilImage(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxWidth()
+            .fillMaxHeight(),
         data = backgroundImage,
         contentDescription = null,
         contentScale = ContentScale.Crop,
