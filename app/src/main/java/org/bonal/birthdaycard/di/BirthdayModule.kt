@@ -10,8 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.bonal.birthdaycard.BuildConfig
 import org.bonal.birthdaycard.MessageSender
 import org.bonal.birthdaycard.WhatsAppMessageSender
-import org.bonal.birthdaycard.network.BirthdayCardContentApiService
-import org.bonal.birthdaycard.network.BirthdayMemoriesApiService
+import org.bonal.birthdaycard.network.BirthdayCardApiService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -51,10 +50,6 @@ class BirthdayProviderModule {
 
     @Provides
     @Singleton
-    fun provideMainApiService(retrofit: Retrofit): BirthdayCardContentApiService = retrofit.create(BirthdayCardContentApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideMemoriesApiService(retrofit: Retrofit): BirthdayMemoriesApiService = retrofit.create(BirthdayMemoriesApiService::class.java)
+    fun provideMainApiService(retrofit: Retrofit): BirthdayCardApiService = retrofit.create(BirthdayCardApiService::class.java)
 
 }

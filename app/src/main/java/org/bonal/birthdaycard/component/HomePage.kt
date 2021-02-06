@@ -61,6 +61,7 @@ private fun BirthdayFeed(
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
     val guestList: List<BirthdayGuestCardViewState> by viewModel.guestList.observeAsState(emptyList())
     val birthdayCardMessage: String by viewModel.birthdayCardMessage.observeAsState("")
+    val galleryButtonLabel: String by viewModel.galleryButtonLabel.observeAsState("")
     val birthdayCardBackground: String by viewModel.birthdayCardBackground.observeAsState("")
 
     rememberScrollState(0f)
@@ -70,7 +71,8 @@ private fun BirthdayFeed(
                 birthdayHost = birthdayHost,
                 message = birthdayCardMessage,
                 backgroundImage = birthdayCardBackground,
-                navigateToMemories = navigateToMemories
+                navigateToMemories = navigateToMemories,
+                galleryButtonLabel = galleryButtonLabel
             )
         }
         items(guestList.size) { index ->
@@ -84,7 +86,8 @@ private fun BirthdayCardHeader(
     birthdayHost: BirthdayHost?,
     message: String,
     backgroundImage: String?,
-    navigateToMemories: () -> Unit
+    navigateToMemories: () -> Unit,
+    galleryButtonLabel: String
 ) {
     Card(
         Modifier
@@ -95,15 +98,15 @@ private fun BirthdayCardHeader(
         contentColor = MaterialTheme.colors.onPrimary
     ) {
         Box(
-            contentAlignment = Alignment.Center
+            modifier = Modifier.padding(8.dp),
+            contentAlignment = Alignment.TopCenter
         ) {
             CardBackgroundImage(backgroundImage)
             Row(
                 Modifier
-                    .wrapContentWidth()
-                    .background(semiTransparentBackground())
-                    .wrapContentHeight()
-                    .padding(16.dp),
+                    .fillMaxSize()
+                    .background(semiTransparentBackground()),
+
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
@@ -120,7 +123,10 @@ private fun BirthdayCardHeader(
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1
                     )
-                    MemoriesButton(onHostClicked = navigateToMemories)
+                    MemoriesButton(
+                        buttonLabel = galleryButtonLabel,
+                        navigateToMemories = navigateToMemories
+                    )
                 }
             }
         }
@@ -128,22 +134,23 @@ private fun BirthdayCardHeader(
 }
 
 @Composable
-private fun MemoriesButton(onHostClicked: () -> Unit) {
+private fun MemoriesButton(buttonLabel: String, navigateToMemories: () -> Unit) {
     val buttonModifier = Modifier
         .wrapContentWidth()
         .background(MaterialTheme.colors.background)
         .padding(all = 1.dp)
     Box(
         modifier = Modifier
+            .padding(bottom = 16.dp, top = 32.dp)
             .fillMaxWidth(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Button(
             modifier = buttonModifier,
-            onClick = onHostClicked
+            onClick = navigateToMemories
         ) {
             Text(
-                text = stringResource(id = R.string.show_memories_label),
+                text = buttonLabel,
                 style = MaterialTheme.typography.button
             )
         }
@@ -159,8 +166,8 @@ private fun CardBackgroundImage(backgroundImage: String?) {
             .fillMaxWidth(),
         data = backgroundImage,
         contentDescription = null,
-        contentScale = ContentScale.FillWidth,
-        alignment = Alignment.Center
+        contentScale = ContentScale.Crop,
+        alignment = Alignment.TopCenter
     )
 }
 
@@ -218,7 +225,7 @@ private fun HostHeroImage(birthdayHost: BirthdayHost) {
 
 @Composable
 private fun semiTransparentBackground(): Color =
-    MaterialTheme.colors.primary.copy(alpha = 0.45f)
+    MaterialTheme.colors.primary.copy(alpha = 0.3f)
 
 @Preview
 @Composable

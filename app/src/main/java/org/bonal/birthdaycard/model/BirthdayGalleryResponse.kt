@@ -1,8 +1,6 @@
 package org.bonal.birthdaycard.model
 
 data class BirthdayGalleryResponse(
-    val headerText: String?,
-    val galleryButtonLabel: String?,
-    val galleryViewTitle: String?,
+    val galleryViewTitle: String? = null,
     val memories: List<BirthdayMemory>
 )

@@ -4,5 +4,6 @@ data class BirthdayData(
     val birthdayHost: BirthdayHost,
     val guestList: List<BirthdayGuest>,
     val birthdayCardMessage: String,
-    val birthdayCardBackground: String
+    val birthdayCardBackground: String,
+    val galleryButtonLabel: String?
 )

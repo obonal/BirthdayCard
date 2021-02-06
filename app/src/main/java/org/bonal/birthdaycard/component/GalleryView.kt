@@ -18,15 +18,20 @@ import org.bonal.birthdaycard.viewmodel.MemoryCardViewState
 @Composable
 fun GalleryView(viewModel: BirthdayMemoriesViewModel) {
     val memories: List<MemoryCardViewState> by viewModel.memoriesList.observeAsState(emptyList())
+    val galleryViewTitle: String? by viewModel.galleryViewTitle.observeAsState()
 
     BirthdayCardTheme {
         // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
             Scaffold(
                 topBar = {
-                    val title = stringResource(id = R.string.title_activity_gallery)
                     TopAppBar(
-                        title = { Text(text = title) }
+                        title = {
+                            Text(
+                                text = galleryViewTitle
+                                    ?: stringResource(id = R.string.toolbar_title)
+                            )
+                        }
                     )
                 },
                 bodyContent = {
@@ -42,9 +47,3 @@ fun GalleryView(viewModel: BirthdayMemoriesViewModel) {
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun GalleryViewPreview() {
-//    GalleryView(memoriesViewModel)
-//}

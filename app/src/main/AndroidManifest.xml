@@ -16,7 +16,6 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".HostGalleryActivity"
-            android:label="@string/title_activity_gallery"
             android:theme="@style/Theme.BirthdayCard.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"

@@ -40,7 +40,7 @@ fun MemoryCard(memory: MemoryCardViewState) {
                 if (memory is MemoryCardViewState.PhotoCardState) {
                     ImageMemory(memory.pictureUrl)
                 } else if (memory is MemoryCardViewState.VideoCardState) {
-                    VideoPlayer(videoUrl = memory.videoUrl, autoPlay = false)
+                    VideoMemory(memory)
                 }
                 val description = memory.description
                 if (description != null) {
@@ -48,6 +48,13 @@ fun MemoryCard(memory: MemoryCardViewState) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun VideoMemory(memory: MemoryCardViewState.VideoCardState) {
+    Box(modifier = Modifier.fillMaxWidth().preferredHeight(300.dp)) {
+        VideoPlayer(videoUrl = memory.videoUrl, autoPlay = false)
     }
 }
 

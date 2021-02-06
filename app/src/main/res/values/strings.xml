@@ -6,7 +6,4 @@
     <string name="play_video_button_label">Show Video</string>
     <string name="stop_video_button_label">Hide Video</string>
     <string name="whatsapp_messenger_label">WhatsApp</string>
-    <string name="title_activity_gallery">Good times!</string>
-    <string name="show_memories_label">Go to Good times gallery</string>
-    <string name="messages_title">Messages</string>
 </resources>
