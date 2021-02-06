@@ -141,7 +141,7 @@ private fun MemoriesButton(buttonLabel: String, navigateToMemories: () -> Unit) 
 //        .padding(all = 1.dp)
     Box(
         modifier = Modifier
-            .padding(bottom = 16.dp, top = 32.dp)
+            .padding(bottom = 16.dp, top = 24.dp)
             .fillMaxWidth(),
         contentAlignment = Alignment.Center,
     ) {
