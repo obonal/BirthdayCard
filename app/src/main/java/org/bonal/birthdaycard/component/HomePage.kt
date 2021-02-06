@@ -117,8 +117,8 @@ private fun BirthdayCardHeader(
                     HostSection(birthdayHost)
                     Text(
                         modifier = Modifier
-                            .fillMaxWidth(fraction = 0.8f)
-                            .padding(top=16.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
+                            .fillMaxWidth(fraction = 0.9f)
+                            .padding(top=8.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
                         text = message,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1
