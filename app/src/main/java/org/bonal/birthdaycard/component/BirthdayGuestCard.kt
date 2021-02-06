@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
+import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardViewState
 
 @Composable
 fun BirthdayGuestCard(
-    cardModel: BirthdayGuestCardModel,
+    cardViewState: BirthdayGuestCardViewState,
 ) {
 
     // expanded is "internal state" for BirthdayGuestCard
@@ -44,10 +44,10 @@ fun BirthdayGuestCard(
                 .preferredSize(75.dp, 75.dp)
                 .clip(CircleShape)
             Row(verticalAlignment = Alignment.Top) {
-                cardModel.pictureUrl?.let {
+                cardViewState.pictureUrl?.let {
                     CoilImage(
-                        data = cardModel.pictureUrl,
-                        contentDescription = cardModel.name,
+                        data = cardViewState.pictureUrl,
+                        contentDescription = cardViewState.name,
                         modifier = imageModifier,
                         contentScale = ContentScale.Crop,
                         loading = {
@@ -59,14 +59,14 @@ fun BirthdayGuestCard(
                             PlaceHolderImage(
                                 modifier = imageModifier,
                                 vectorIconRes = R.drawable.ic_guest,
-                                contentDescription = cardModel.name
+                                contentDescription = cardViewState.name
                             )
                         }
                     )
                 } ?: PlaceHolderImage(imageModifier, R.drawable.ic_guest)
                 Column {
-                    Text(cardModel.name, style = MaterialTheme.typography.h6)
-                    val message = cardModel.message
+                    Text(cardViewState.name, style = MaterialTheme.typography.h6)
+                    val message = cardViewState.message
                     if (message != null) {
                         Text(message, style = MaterialTheme.typography.body1)
                     }
@@ -74,11 +74,11 @@ fun BirthdayGuestCard(
             }
             if (expandedState.value) {
                 Box(modifier = Modifier.fillMaxWidth().preferredHeight(300.dp)) {
-                    VideoPlayer(videoUrl = cardModel.video!!, autoPlay = true)
+                    VideoPlayer(videoUrl = cardViewState.video!!, autoPlay = true)
                 }
             }
-            if (cardModel.hasActions()) {
-                ButtonRow(padding, cardModel, expandedState)
+            if (cardViewState.hasActions()) {
+                ButtonRow(padding, cardViewState, expandedState)
             }
         }
     }
@@ -87,7 +87,7 @@ fun BirthdayGuestCard(
 @Composable
 private fun ButtonRow(
     padding: Dp,
-    cardModel: BirthdayGuestCardModel,
+    cardViewState: BirthdayGuestCardViewState,
     expandedState: MutableState<Boolean>
 ) {
     Row(
@@ -99,7 +99,7 @@ private fun ButtonRow(
         val buttonModifier = Modifier
             .weight(1f)
             .padding(2.dp)
-        if (cardModel.video != null) {
+        if (cardViewState.video != null) {
             val videoButtonLabel = if (expandedState.value) {
                 stringResource(R.string.stop_video_button_label)
             } else {
@@ -113,7 +113,7 @@ private fun ButtonRow(
                 )
             }
         }
-        val secondaryAction = cardModel.secondaryAction
+        val secondaryAction = cardViewState.secondaryAction
         if (secondaryAction != null) {
             Button(modifier = buttonModifier,
                 onClick = { secondaryAction.performAction() }) {
@@ -130,7 +130,7 @@ private fun ButtonRow(
 @Composable
 fun GuestCardPreview() {
     BirthdayGuestCard(
-        cardModel = BirthdayGuestCardModel(
+        cardViewState = BirthdayGuestCardViewState(
             name = "Birthday Boy",
             message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             video = "an non empty video url",

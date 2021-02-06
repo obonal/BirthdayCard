@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class BirthdayGuestCardDataMapper @Inject constructor(private val messageSender: MessageSender) {
     fun map(guest: BirthdayGuest) =
-        BirthdayGuestCardModel(name = guest.name,
+        BirthdayGuestCardViewState(name = guest.name,
             message = guest.message,
             pictureUrl = guest.pictureUrl,
             video = guest.video,

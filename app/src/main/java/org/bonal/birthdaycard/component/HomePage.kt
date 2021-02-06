@@ -23,7 +23,7 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayHost
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
-import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
+import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardViewState
 import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 
 @Composable
@@ -59,7 +59,7 @@ private fun BirthdayFeed(
     navigateToMemories: () -> Unit
 ) {
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
-    val guestList: List<BirthdayGuestCardModel> by viewModel.guestList.observeAsState(emptyList())
+    val guestList: List<BirthdayGuestCardViewState> by viewModel.guestList.observeAsState(emptyList())
     val birthdayCardMessage: String by viewModel.birthdayCardMessage.observeAsState("")
     val birthdayCardBackground: String by viewModel.birthdayCardBackground.observeAsState("")
 

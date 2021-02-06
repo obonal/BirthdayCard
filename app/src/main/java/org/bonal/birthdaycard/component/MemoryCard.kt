@@ -13,9 +13,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.model.BirthdayMemory
+import org.bonal.birthdaycard.viewmodel.MemoryCardViewState
 
 @Composable
-fun MemoryCard(memory: BirthdayMemory) {
+fun MemoryCard(memory: MemoryCardViewState) {
 
     val padding = 16.dp
 
@@ -36,7 +37,11 @@ fun MemoryCard(memory: BirthdayMemory) {
                 .clip(CircleShape)
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = memory.title, style = MaterialTheme.typography.h5)
-                ImageMemory(memory.pictureUrl)
+                if (memory is MemoryCardViewState.PhotoCardState) {
+                    ImageMemory(memory.pictureUrl)
+                } else if (memory is MemoryCardViewState.VideoCardState) {
+                    VideoPlayer(videoUrl = memory.videoUrl, autoPlay = false)
+                }
                 val description = memory.description
                 if (description != null) {
                     Text(description, style = MaterialTheme.typography.body1)
@@ -47,8 +52,7 @@ fun MemoryCard(memory: BirthdayMemory) {
 }
 
 @Composable
-private fun ImageMemory(imageUrl: String?) {
-    imageUrl ?: return
+private fun ImageMemory(imageUrl: String) {
     CoilImage(
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp)

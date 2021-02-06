@@ -2,7 +2,7 @@ package org.bonal.birthdaycard.viewmodel
 
 import org.bonal.birthdaycard.component.GuestCardAction
 
-data class BirthdayGuestCardModel(
+data class BirthdayGuestCardViewState(
     val name: String,
     val message: String?,
     val pictureUrl: String? = null,

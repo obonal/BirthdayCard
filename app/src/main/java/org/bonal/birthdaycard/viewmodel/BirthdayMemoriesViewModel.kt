@@ -11,16 +11,33 @@ import javax.inject.Inject
 class BirthdayMemoriesViewModel @Inject constructor(
     private val birthdayRepository: BirthdayRepository) : ViewModel() {
 
-    private val _birthdayHost = MutableLiveData<BirthdayHost>()
-    val birthdayHost: LiveData<BirthdayHost> = _birthdayHost
-
-    private val _memoriesList = MutableLiveData<List<BirthdayMemory>>()
-    val memoriesList: LiveData<List<BirthdayMemory>> = _memoriesList
+    private val _memoriesList = MutableLiveData<List<MemoryCardViewState>>()
+    val memoriesList: LiveData<List<MemoryCardViewState>> = _memoriesList
 
     fun loadMemories() =
         viewModelScope.launch {
             try {
-                _memoriesList.value = birthdayRepository.getMemories()
+                _memoriesList.value = birthdayRepository.getMemories().mapNotNull {
+                    when {
+                        it.pictureUrl != null -> {
+                            MemoryCardViewState.PhotoCardState(
+                                title = it.title,
+                                description = it.description,
+                                pictureUrl = it.pictureUrl
+                            )
+                        }
+                        it.videoUrl != null -> {
+                            MemoryCardViewState.VideoCardState(
+                                title = it.title,
+                                description = it.description,
+                                videoUrl = it.videoUrl
+                            )
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+                }
             } catch (t: Throwable) {
                 // TODO: Error handling
             }

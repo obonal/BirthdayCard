@@ -17,7 +17,7 @@ class BirthdayViewModel @Inject constructor(
     val birthdayHost: LiveData<BirthdayHost> = _birthdayHost
 
     private val _guestList = MutableLiveData<List<BirthdayGuest>>()
-    val guestList: LiveData<List<BirthdayGuestCardModel>> =
+    val guestList: LiveData<List<BirthdayGuestCardViewState>> =
         Transformations.map(_guestList) { guests ->
             guests.map { birthdayGuestCardDataMapper.map(it) }
         }

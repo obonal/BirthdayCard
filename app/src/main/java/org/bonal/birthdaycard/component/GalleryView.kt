@@ -13,10 +13,11 @@ import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayMemory
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
 import org.bonal.birthdaycard.viewmodel.BirthdayMemoriesViewModel
+import org.bonal.birthdaycard.viewmodel.MemoryCardViewState
 
 @Composable
 fun GalleryView(viewModel: BirthdayMemoriesViewModel) {
-    val memories: List<BirthdayMemory> by viewModel.memoriesList.observeAsState(emptyList())
+    val memories: List<MemoryCardViewState> by viewModel.memoriesList.observeAsState(emptyList())
 
     BirthdayCardTheme {
         // A surface container using the 'background' color from the theme
