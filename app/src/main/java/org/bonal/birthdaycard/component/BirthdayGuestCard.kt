@@ -73,7 +73,9 @@ fun BirthdayGuestCard(
                 }
             }
             if (expandedState.value) {
-                VideoPlayer(videoUrl = cardModel.video!!)
+                Box(modifier = Modifier.fillMaxWidth().preferredHeight(300.dp)) {
+                    VideoPlayer(videoUrl = cardModel.video!!, autoPlay = true)
+                }
             }
             if (cardModel.hasActions()) {
                 ButtonRow(padding, cardModel, expandedState)

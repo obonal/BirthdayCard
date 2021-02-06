@@ -10,7 +10,11 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import org.bonal.birthdaycard.databinding.VideoPlayerLayoutBinding
 
 @Composable
-fun VideoPlayer(videoUrl: String) {
+fun VideoPlayer(
+    videoUrl: String,
+    autoPlay: Boolean = false,
+    controllerAutoShow: Boolean = !autoPlay
+) {
     // This is the official way to access current context from Composable functions
     val context = AmbientContext.current
 
@@ -26,6 +30,10 @@ fun VideoPlayer(videoUrl: String) {
         val mediaItem: MediaItem = MediaItem.fromUri(videoUrl)
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
-        exoPlayer.play()
+        exoPlayerView.hideController()
+        exoPlayerView.controllerAutoShow = controllerAutoShow
+        if (autoPlay) {
+            exoPlayer.play()
+        }
     }
 }

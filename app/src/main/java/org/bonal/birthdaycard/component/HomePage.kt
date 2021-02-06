@@ -27,13 +27,16 @@ import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardModel
 import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
 
 @Composable
-fun HomePage(viewModel: BirthdayViewModel, onHostClicked: () -> Unit) {
+fun HomePage(viewModel: BirthdayViewModel, navigateToMemories: () -> Unit) {
+    val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
     BirthdayCardTheme {
         // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
             Scaffold(
                 topBar = {
-                    val title = stringResource(id = R.string.toolbar_title)
+                    val title = birthdayHost?.name?.let {
+                        stringResource(id = R.string.birthday_card_title, it)
+                    } ?: stringResource(id = R.string.toolbar_title)
                     TopAppBar(
                         title = { Text(text = title) }
                     )
@@ -41,7 +44,7 @@ fun HomePage(viewModel: BirthdayViewModel, onHostClicked: () -> Unit) {
                 bodyContent = {
                     BirthdayFeed(
                         viewModel = viewModel,
-                        onHostClicked = onHostClicked
+                        navigateToMemories = navigateToMemories
                     )
                 }
             )
@@ -53,7 +56,7 @@ fun HomePage(viewModel: BirthdayViewModel, onHostClicked: () -> Unit) {
 @Composable
 private fun BirthdayFeed(
     viewModel: BirthdayViewModel,
-    onHostClicked: () -> Unit
+    navigateToMemories: () -> Unit
 ) {
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
     val guestList: List<BirthdayGuestCardModel> by viewModel.guestList.observeAsState(emptyList())
@@ -67,7 +70,7 @@ private fun BirthdayFeed(
                 birthdayHost = birthdayHost,
                 message = birthdayCardMessage,
                 backgroundImage = birthdayCardBackground,
-                onHostClicked = onHostClicked
+                navigateToMemories = navigateToMemories
             )
         }
         items(guestList.size) { index ->
@@ -81,7 +84,7 @@ private fun BirthdayCardHeader(
     birthdayHost: BirthdayHost?,
     message: String,
     backgroundImage: String?,
-    onHostClicked: () -> Unit
+    navigateToMemories: () -> Unit
 ) {
     Card(
         Modifier
@@ -91,19 +94,21 @@ private fun BirthdayCardHeader(
         elevation = 8.dp,
         contentColor = MaterialTheme.colors.onPrimary
     ) {
-        Box(contentAlignment = Alignment.Center) {
-            cardBackgroundImage(backgroundImage)
+        Box(
+            contentAlignment = Alignment.Center
+        ) {
+            CardBackgroundImage(backgroundImage)
             Row(
                 Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
+                    .wrapContentWidth()
                     .background(semiTransparentBackground())
-                    .padding(0.dp),
+                    .wrapContentHeight()
+                    .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Column(
-                    horizontalAlignment = Alignment.Start,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     HostSection(birthdayHost)
@@ -115,7 +120,7 @@ private fun BirthdayCardHeader(
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1
                     )
-                    MemoriesButton(onHostClicked)
+                    MemoriesButton(onHostClicked = navigateToMemories)
                 }
             }
         }
@@ -125,29 +130,36 @@ private fun BirthdayCardHeader(
 @Composable
 private fun MemoriesButton(onHostClicked: () -> Unit) {
     val buttonModifier = Modifier
-        .fillMaxWidth(0.8f)
-        .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 8.dp)
-    Button(
-        modifier = buttonModifier,
-        onClick = onHostClicked
+        .wrapContentWidth()
+        .background(MaterialTheme.colors.background)
+        .padding(all = 1.dp)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            stringResource(id = R.string.show_memories_label),
-            style = MaterialTheme.typography.button
-        )
+        Button(
+            modifier = buttonModifier,
+            onClick = onHostClicked
+        ) {
+            Text(
+                text = stringResource(id = R.string.show_memories_label),
+                style = MaterialTheme.typography.button
+            )
+        }
     }
 }
 
 @Composable
-private fun cardBackgroundImage(backgroundImage: String?) {
+private fun CardBackgroundImage(backgroundImage: String?) {
     backgroundImage ?: return
     CoilImage(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
+            .wrapContentHeight()
+            .fillMaxWidth(),
         data = backgroundImage,
         contentDescription = null,
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.FillWidth,
         alignment = Alignment.Center
     )
 }
@@ -157,7 +169,7 @@ private fun HostSection(birthdayHost: BirthdayHost?) {
     birthdayHost?.let { host ->
         val age = host.age
         val rowModifier = Modifier
-            .fillMaxWidth()
+            .wrapContentWidth()
             .wrapContentHeight()
         Row(
             modifier = rowModifier,
@@ -206,7 +218,7 @@ private fun HostHeroImage(birthdayHost: BirthdayHost) {
 
 @Composable
 private fun semiTransparentBackground(): Color =
-    MaterialTheme.colors.primary.copy(alpha = 0.2f)
+    MaterialTheme.colors.primary.copy(alpha = 0.45f)
 
 @Preview
 @Composable

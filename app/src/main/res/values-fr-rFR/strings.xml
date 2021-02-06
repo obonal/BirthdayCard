@@ -7,7 +7,7 @@
     <string name="play_video_button_label">Jouer la vidéo</string>
     <string name="stop_video_button_label">Stopper la vidéo</string>
     <string name="whatsapp_messenger_label">WhatsApp</string>
-    <string name="title_activity_gallery">Souvenirs…</string>
-    <string name="show_memories_label">Voir les souvenirs…</string>
-
+    <string name="title_activity_gallery">Bons moments</string>
+    <string name="show_memories_label">Gallerie de bons souvenirs…</string>
+    <string name="messages_title">Messages</string>
 </resources>
