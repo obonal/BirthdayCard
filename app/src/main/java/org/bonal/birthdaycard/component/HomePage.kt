@@ -118,7 +118,7 @@ private fun BirthdayCardHeader(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(fraction = 0.8f)
-                            .padding(16.dp),
+                            .padding(top=16.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
                         text = message,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1
@@ -137,8 +137,8 @@ private fun BirthdayCardHeader(
 private fun MemoriesButton(buttonLabel: String, navigateToMemories: () -> Unit) {
     val buttonModifier = Modifier
         .wrapContentWidth()
-        .background(MaterialTheme.colors.background)
-        .padding(all = 1.dp)
+//        .background(MaterialTheme.colors.background)
+//        .padding(all = 1.dp)
     Box(
         modifier = Modifier
             .padding(bottom = 16.dp, top = 32.dp)
