@@ -87,7 +87,7 @@ private fun BirthdayCardHeader(
     message: String,
     backgroundImage: String?,
     navigateToMemories: () -> Unit,
-    galleryButtonLabel: String
+    galleryButtonLabel: String?
 ) {
     Card(
         Modifier
@@ -123,10 +123,12 @@ private fun BirthdayCardHeader(
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1
                     )
-                    MemoriesButton(
-                        buttonLabel = galleryButtonLabel,
-                        navigateToMemories = navigateToMemories
-                    )
+                    if (galleryButtonLabel != null) {
+                        MemoriesButton(
+                            buttonLabel = galleryButtonLabel,
+                            navigateToMemories = navigateToMemories
+                        )
+                    }
                 }
             }
         }

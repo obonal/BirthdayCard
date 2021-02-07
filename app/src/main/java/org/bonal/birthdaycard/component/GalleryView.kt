@@ -10,7 +10,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.model.BirthdayMemory
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
 import org.bonal.birthdaycard.viewmodel.BirthdayMemoriesViewModel
 import org.bonal.birthdaycard.viewmodel.MemoryCardViewState
