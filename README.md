@@ -67,7 +67,7 @@ When `galleryButtonLabel` is not null in this first json, a button will appear o
 			"title": "Sample Video Content",
 			"description": "blablablab",
 			"pictureUrl": null,
-			"videoUrl": "http://aplaceontheinternet.com/images/whatever.jpg"
+			"videoUrl": "http://aplaceontheinternet.com/images/whatever.mp4"
 		}
 	]
 }
