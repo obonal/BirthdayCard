@@ -12,6 +12,9 @@ birthday_card_info_base_url = "http://mydomain.com/my-birthday-card-folder/"
 The file itself must have the following format
 ```json
 {
+  "birthdayCardMessage": "For your birthday, we've decided to send you some nice messages and gather them in this app. Check what your friends have to say…",
+  "birthdayCardBackground": "http://whatever.com/background.jpg",
+  "galleryButtonLabel": "Go to media gallery",
   "birthdayHost": {
      "name": "Jérôme",
      "pictureUrl": "https://mydomain.com/my-birthday-card-folder/bob.jpg"
@@ -41,7 +44,11 @@ The file itself must have the following format
       "phoneNumber":"+33 111111111"
     }
 
-  ],
-  "birthdayCardMessage": "For your birthday, we've decided to send you some nice messages and gather them in this app. Check what your friends have to say…"	
+  ]
 }
+```
+
+When `galleryButtonLabel` is not null in this first json, a button will appear on the messages page header showing media content fetched from a second json file, placed in the place on the same server and named "birthday_memories.json":
+
+```json
 ```
