@@ -51,4 +51,24 @@ The file itself must have the following format
 When `galleryButtonLabel` is not null in this first json, a button will appear on the messages page header showing media content fetched from a second json file, placed in the place on the same server and named "birthday_memories.json":
 
 ```json
+{
+	"galleryViewTitle": "Good Times Gallery",
+	"memories": [{
+			"title": "Sample Text Content",
+			"description": "Acting as Section Header..."
+		},
+		{
+			"title": "Sample Image Content",
+			"description": "blablablab",
+			"pictureUrl": "http://aplaceontheinternet.com/images/whatever.jpg",
+			"videoUrl": null
+		},
+		{
+			"title": "Sample Video Content",
+			"description": "blablablab",
+			"pictureUrl": null,
+			"videoUrl": "http://aplaceontheinternet.com/images/whatever.jpg"
+		}
+	]
+}
 ```
