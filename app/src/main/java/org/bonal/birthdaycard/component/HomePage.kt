@@ -60,9 +60,9 @@ private fun BirthdayFeed(
 ) {
     val birthdayHost: BirthdayHost? by viewModel.birthdayHost.observeAsState()
     val guestList: List<BirthdayGuestCardViewState> by viewModel.guestList.observeAsState(emptyList())
-    val birthdayCardMessage: String by viewModel.birthdayCardMessage.observeAsState("")
-    val galleryButtonLabel: String by viewModel.galleryButtonLabel.observeAsState("")
-    val birthdayCardBackground: String by viewModel.birthdayCardBackground.observeAsState("")
+    val birthdayCardMessage: String? by viewModel.birthdayCardMessage.observeAsState()
+    val galleryButtonLabel: String? by viewModel.galleryButtonLabel.observeAsState()
+    val birthdayCardBackground: String? by viewModel.birthdayCardBackground.observeAsState()
 
     rememberScrollState(0f)
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -84,7 +84,7 @@ private fun BirthdayFeed(
 @Composable
 private fun BirthdayCardHeader(
     birthdayHost: BirthdayHost?,
-    message: String,
+    message: String?,
     backgroundImage: String?,
     navigateToMemories: () -> Unit,
     galleryButtonLabel: String?
@@ -103,10 +103,9 @@ private fun BirthdayCardHeader(
         ) {
             CardBackgroundImage(backgroundImage)
             Row(
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .background(semiTransparentBackground()),
-
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
@@ -115,20 +114,11 @@ private fun BirthdayCardHeader(
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     HostSection(birthdayHost)
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth(fraction = 0.9f)
-                            .padding(top=8.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
-                        text = message,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.body1
+                    BirthdayHeaderMessage(message)
+                    MemoriesButton(
+                        buttonLabel = galleryButtonLabel,
+                        navigateToMemories = navigateToMemories
                     )
-                    if (galleryButtonLabel != null) {
-                        MemoriesButton(
-                            buttonLabel = galleryButtonLabel,
-                            navigateToMemories = navigateToMemories
-                        )
-                    }
                 }
             }
         }
@@ -136,11 +126,25 @@ private fun BirthdayCardHeader(
 }
 
 @Composable
-private fun MemoriesButton(buttonLabel: String, navigateToMemories: () -> Unit) {
+private fun BirthdayHeaderMessage(message: String?) {
+    message?.let {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth(fraction = 0.9f)
+                .padding(top = 8.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
+            text = message,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.body1
+        )
+    }
+}
+
+@Composable
+private fun MemoriesButton(buttonLabel: String?, navigateToMemories: () -> Unit) {
+    if (buttonLabel.isNullOrBlank()) return
     val buttonModifier = Modifier
         .wrapContentWidth()
 //        .background(MaterialTheme.colors.background)
-//        .padding(all = 1.dp)
     Box(
         modifier = Modifier
             .padding(bottom = 16.dp, top = 24.dp)
@@ -161,7 +165,7 @@ private fun MemoriesButton(buttonLabel: String, navigateToMemories: () -> Unit) 
 
 @Composable
 private fun CardBackgroundImage(backgroundImage: String?) {
-    backgroundImage ?: return
+    if (backgroundImage.isNullOrBlank()) return
     CoilImage(
         modifier = Modifier
             .wrapContentHeight()
