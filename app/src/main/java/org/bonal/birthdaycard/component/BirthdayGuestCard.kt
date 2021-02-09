@@ -30,6 +30,7 @@ fun BirthdayGuestCard(
 
     Card(
         Modifier
+            .preferredWidthIn(300.dp, 600.dp)
             .fillMaxWidth()
             .padding(8.dp),
         elevation = 8.dp,

@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,7 +67,10 @@ private fun BirthdayFeed(
     val birthdayCardBackground: String? by viewModel.birthdayCardBackground.observeAsState()
 
     rememberScrollState(0f)
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         item {
             BirthdayCardHeader(
                 birthdayHost = birthdayHost,
@@ -93,6 +98,8 @@ private fun BirthdayCardHeader(
         Modifier
             .padding(8.dp)
             .wrapContentHeight()
+            .preferredHeightIn(200.dp, 380.dp)
+            .preferredWidthIn(300.dp, 600.dp)
             .fillMaxWidth(),
         elevation = 8.dp,
         contentColor = MaterialTheme.colors.onPrimary
@@ -114,7 +121,16 @@ private fun BirthdayCardHeader(
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     HostSection(birthdayHost)
-                    BirthdayHeaderMessage(message)
+                    message?.let {
+                        Row(
+                            modifier = Modifier
+                                .weight(1f, true)
+                                .preferredHeight(0.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            BirthdayHeaderMessage(message)
+                        }
+                    }
                     MemoriesButton(
                         buttonLabel = galleryButtonLabel,
                         navigateToMemories = navigateToMemories
@@ -126,17 +142,17 @@ private fun BirthdayCardHeader(
 }
 
 @Composable
-private fun BirthdayHeaderMessage(message: String?) {
-    message?.let {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(fraction = 0.9f)
-                .padding(top = 8.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
-            text = message,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.body1
-        )
-    }
+private fun BirthdayHeaderMessage(message: String) {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth(fraction = 0.9f)
+            .padding(top = 8.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
+        text = message,
+        overflow = TextOverflow.Ellipsis,
+        textAlign = TextAlign.Justify,
+        fontWeight = FontWeight.Bold,
+        style = MaterialTheme.typography.body1
+    )
 }
 
 @Composable
@@ -168,12 +184,11 @@ private fun CardBackgroundImage(backgroundImage: String?) {
     if (backgroundImage.isNullOrBlank()) return
     CoilImage(
         modifier = Modifier
-            .wrapContentHeight()
-            .fillMaxWidth(),
+            .fillMaxSize(),
         data = backgroundImage,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        alignment = Alignment.TopCenter
+        alignment = Alignment.Center
     )
 }
 
@@ -231,7 +246,7 @@ private fun HostHeroImage(birthdayHost: BirthdayHost) {
 
 @Composable
 private fun semiTransparentBackground(): Color =
-    MaterialTheme.colors.primary.copy(alpha = 0.3f)
+    MaterialTheme.colors.primary.copy(alpha = 0.4f)
 
 @Preview
 @Composable
