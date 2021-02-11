@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composition
 import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.CompositionLocal
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.setContent
+import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import org.bonal.birthdaycard.component.HomePage
 import org.bonal.birthdaycard.presentation.BirthdayViewModel

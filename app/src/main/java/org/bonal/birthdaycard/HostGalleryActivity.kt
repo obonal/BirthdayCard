@@ -3,7 +3,7 @@ package org.bonal.birthdaycard
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.setContent
+import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import org.bonal.birthdaycard.component.GalleryView
 import org.bonal.birthdaycard.presentation.BirthdayMemoriesViewModel
