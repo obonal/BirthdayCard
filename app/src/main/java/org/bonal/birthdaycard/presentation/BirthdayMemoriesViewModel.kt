@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.viewmodel
+package org.bonal.birthdaycard.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.bonal.birthdaycard.data.BirthdayRepository
+import org.bonal.birthdaycard.domain.FetchMemoriesUseCase
 import org.bonal.birthdaycard.model.BirthdayMemory
 import javax.inject.Inject
 
 @HiltViewModel
 class BirthdayMemoriesViewModel @Inject constructor(
-    private val birthdayRepository: BirthdayRepository
+    private val fetchMemoriesUseCase: FetchMemoriesUseCase
 ) : ViewModel() {
 
     private val _memoriesList = MutableLiveData<List<MemoryCardViewState>>()
@@ -24,7 +24,7 @@ class BirthdayMemoriesViewModel @Inject constructor(
     fun loadMemories() =
         viewModelScope.launch {
             try {
-                val galleryData = birthdayRepository.getGalleryData()
+                val galleryData = fetchMemoriesUseCase.fetchBirthdayMemories()
                 _memoriesList.value = galleryData.memories.map {
                     mapBirthdayMemoryToMemoryCardViewState(it)
                 }

@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.viewmodel
+package org.bonal.birthdaycard.presentation
 
 sealed class MemoryCardViewState(val title: String? = null,
                                  val description: String? = null) {

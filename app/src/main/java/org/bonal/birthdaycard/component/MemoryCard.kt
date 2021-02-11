@@ -11,7 +11,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
-import org.bonal.birthdaycard.viewmodel.MemoryCardViewState
+import org.bonal.birthdaycard.presentation.MemoryCardViewState
 
 @Composable
 fun MemoryCard(memory: MemoryCardViewState) {

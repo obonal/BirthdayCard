@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
-import org.bonal.birthdaycard.viewmodel.BirthdayMemoriesViewModel
-import org.bonal.birthdaycard.viewmodel.MemoryCardViewState
+import org.bonal.birthdaycard.presentation.BirthdayMemoriesViewModel
+import org.bonal.birthdaycard.presentation.MemoryCardViewState
 
 @Composable
 fun GalleryView(viewModel: BirthdayMemoriesViewModel) {

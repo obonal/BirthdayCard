@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardViewState
+import org.bonal.birthdaycard.presentation.BirthdayGuestCardViewState
 
 @Composable
 fun BirthdayGuestCard(

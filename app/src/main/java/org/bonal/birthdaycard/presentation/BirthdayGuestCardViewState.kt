@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.viewmodel
+package org.bonal.birthdaycard.presentation
 
 import org.bonal.birthdaycard.component.GuestCardAction
 

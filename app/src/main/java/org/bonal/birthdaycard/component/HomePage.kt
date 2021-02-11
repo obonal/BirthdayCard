@@ -25,8 +25,8 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.model.BirthdayHost
 import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
-import org.bonal.birthdaycard.viewmodel.BirthdayGuestCardViewState
-import org.bonal.birthdaycard.viewmodel.BirthdayViewModel
+import org.bonal.birthdaycard.presentation.BirthdayGuestCardViewState
+import org.bonal.birthdaycard.presentation.BirthdayViewModel
 
 @Composable
 fun HomePage(viewModel: BirthdayViewModel, navigateToMemories: () -> Unit) {
