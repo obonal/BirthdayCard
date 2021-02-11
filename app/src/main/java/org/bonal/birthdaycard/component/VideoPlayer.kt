@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -16,7 +17,7 @@ fun VideoPlayer(
     controllerAutoShow: Boolean = !autoPlay
 ) {
     // This is the official way to access current context from Composable functions
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     // Do not recreate the player everytime this Composable commits
     val exoPlayer = remember { SimpleExoPlayer.Builder(context).build() }

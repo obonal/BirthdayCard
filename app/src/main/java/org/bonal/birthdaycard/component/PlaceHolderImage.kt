@@ -9,7 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import org.bonal.birthdaycard.R
 
@@ -22,7 +24,7 @@ fun PlaceHolderImage(
     Image(
         modifier = modifier,
         contentDescription = contentDescription,
-        imageVector = vectorResource(id = vectorIconRes),
+        painter = painterResource(id = vectorIconRes),
         contentScale = ContentScale.Crop,
         colorFilter = ColorFilter.tint(tintColor)
     )

@@ -15,9 +15,6 @@ import org.bonal.birthdaycard.presentation.MemoryCardViewState
 
 @Composable
 fun MemoryCard(memory: MemoryCardViewState) {
-
-    val padding = 16.dp
-
     Card(
         Modifier
             .fillMaxWidth()

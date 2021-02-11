@@ -4,6 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composition
+import androidx.compose.runtime.CompositionContext
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import org.bonal.birthdaycard.component.HomePage
