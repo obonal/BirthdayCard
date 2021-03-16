@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.component
+package org.bonal.birthdaycard.presentation.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -20,8 +20,8 @@ fun MemoryCard(memory: MemoryCardViewState) {
             .fillMaxWidth()
             .padding(8.dp),
         elevation = 8.dp,
-        backgroundColor = CardBackgroundColor(memory),
-        contentColor = CardForegroundColor(memory),
+        backgroundColor = cardBackgroundColor(memory),
+        contentColor = cardForegroundColor(memory),
     ) {
         when (memory) {
             is MemoryCardViewState.TextCardState -> TextCard(memory)
@@ -33,7 +33,7 @@ fun MemoryCard(memory: MemoryCardViewState) {
 }
 
 @Composable
-private fun CardBackgroundColor(memory: MemoryCardViewState) =
+private fun cardBackgroundColor(memory: MemoryCardViewState) =
     if (memory is MemoryCardViewState.TextCardState) {
         MaterialTheme.colors.primary
     } else {
@@ -41,7 +41,7 @@ private fun CardBackgroundColor(memory: MemoryCardViewState) =
     }
 
 @Composable
-private fun CardForegroundColor(memory: MemoryCardViewState) =
+private fun cardForegroundColor(memory: MemoryCardViewState) =
     if (memory is MemoryCardViewState.TextCardState) {
         MaterialTheme.colors.onPrimary
     } else {
@@ -102,7 +102,7 @@ private fun VideoMemory(memory: MemoryCardViewState.VideoCardState) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .preferredHeight(300.dp)
+            .height(300.dp)
     ) {
         VideoPlayer(videoUrl = memory.videoUrl, autoPlay = false)
     }

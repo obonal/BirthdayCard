@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.bonal.birthdaycard.domain.FetchMemoriesUseCase
-import org.bonal.birthdaycard.model.BirthdayMemory
+import org.bonal.birthdaycard.data.model.BirthdayMemory
 import javax.inject.Inject
 
 @HiltViewModel

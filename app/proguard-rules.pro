@@ -23,7 +23,7 @@
 -dontwarn org.jetbrains.annotations.**
 -keep class kotlin.Metadata { *; }
 
--keepclassmembers class org.bonal.birthdaycard.model.** {
+-keepclassmembers class org.bonal.birthdaycard.data.model.** {
   <init>(...);
   <fields>;
 }

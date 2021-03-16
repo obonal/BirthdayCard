@@ -4,13 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.Composition
-import androidx.compose.runtime.CompositionContext
-import androidx.compose.runtime.CompositionLocal
-import androidx.compose.ui.platform.LocalContext
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import org.bonal.birthdaycard.component.HomePage
+import org.bonal.birthdaycard.presentation.component.HomePage
 import org.bonal.birthdaycard.presentation.BirthdayViewModel
 import javax.inject.Inject
 

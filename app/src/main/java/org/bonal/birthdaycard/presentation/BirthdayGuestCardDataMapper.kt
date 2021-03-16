@@ -1,8 +1,8 @@
 package org.bonal.birthdaycard.presentation
 
 import org.bonal.birthdaycard.MessageSender
-import org.bonal.birthdaycard.component.GuestCardAction
-import org.bonal.birthdaycard.model.BirthdayGuest
+import org.bonal.birthdaycard.presentation.component.GuestCardAction
+import org.bonal.birthdaycard.data.model.BirthdayGuest
 import javax.inject.Inject
 
 class BirthdayGuestCardDataMapper @Inject constructor(private val messageSender: MessageSender) {

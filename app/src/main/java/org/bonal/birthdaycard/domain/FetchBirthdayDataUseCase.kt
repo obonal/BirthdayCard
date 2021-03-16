@@ -1,7 +1,7 @@
 package org.bonal.birthdaycard.domain
 
 import org.bonal.birthdaycard.data.BirthdayRepository
-import org.bonal.birthdaycard.model.BirthdayData
+import org.bonal.birthdaycard.data.model.BirthdayData
 import javax.inject.Inject
 
 class FetchBirthdayDataUseCase @Inject constructor(private val birthdayRepository: BirthdayRepository) {

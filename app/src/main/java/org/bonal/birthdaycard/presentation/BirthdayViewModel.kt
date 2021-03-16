@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.bonal.birthdaycard.domain.FetchBirthdayDataUseCase
-import org.bonal.birthdaycard.model.*
+import org.bonal.birthdaycard.data.model.*
 import javax.inject.Inject
 
 @HiltViewModel

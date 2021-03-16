@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.ui.theme
+package org.bonal.birthdaycard.presentation.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

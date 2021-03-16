@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import org.bonal.birthdaycard.component.GalleryView
+import org.bonal.birthdaycard.presentation.component.GalleryView
 import org.bonal.birthdaycard.presentation.BirthdayMemoriesViewModel
 
 @AndroidEntryPoint

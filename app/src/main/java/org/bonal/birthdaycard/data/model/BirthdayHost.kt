@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.model
+package org.bonal.birthdaycard.data.model
 
 import com.squareup.moshi.Json
 

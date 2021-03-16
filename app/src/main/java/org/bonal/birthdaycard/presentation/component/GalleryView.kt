@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.component
+package org.bonal.birthdaycard.presentation.component
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,7 +10,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
+import org.bonal.birthdaycard.presentation.theme.BirthdayCardTheme
 import org.bonal.birthdaycard.presentation.BirthdayMemoriesViewModel
 import org.bonal.birthdaycard.presentation.MemoryCardViewState
 
@@ -33,8 +33,8 @@ fun GalleryView(viewModel: BirthdayMemoriesViewModel) {
                         }
                     )
                 },
-                bodyContent = {
-                    rememberScrollState(0f)
+                content = {
+                    rememberScrollState(0)
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(memories.size) { index ->
                             MemoryCard(memories[index])

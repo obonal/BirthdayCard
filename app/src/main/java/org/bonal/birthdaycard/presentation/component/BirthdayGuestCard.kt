@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.component
+package org.bonal.birthdaycard.presentation.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -30,7 +30,7 @@ fun BirthdayGuestCard(
 
     Card(
         Modifier
-            .preferredWidthIn(300.dp, 600.dp)
+            .widthIn(300.dp, 600.dp)
             .fillMaxWidth()
             .padding(8.dp),
         elevation = 8.dp,
@@ -42,7 +42,7 @@ fun BirthdayGuestCard(
         ) {
             val imageModifier = Modifier
                 .padding(end = 8.dp)
-                .preferredSize(75.dp, 75.dp)
+                .size(75.dp, 75.dp)
                 .clip(CircleShape)
             Row(verticalAlignment = Alignment.Top) {
                 cardViewState.pictureUrl?.let {
@@ -74,7 +74,7 @@ fun BirthdayGuestCard(
                 }
             }
             if (expandedState.value) {
-                Box(modifier = Modifier.fillMaxWidth().preferredHeight(300.dp)) {
+                Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
                     VideoPlayer(videoUrl = cardViewState.video!!, autoPlay = true)
                 }
             }

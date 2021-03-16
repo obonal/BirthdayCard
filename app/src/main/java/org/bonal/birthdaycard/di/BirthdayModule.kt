@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.bonal.birthdaycard.BuildConfig
 import org.bonal.birthdaycard.MessageSender
 import org.bonal.birthdaycard.WhatsAppMessageSender
-import org.bonal.birthdaycard.network.BirthdayCardApiService
+import org.bonal.birthdaycard.data.network.BirthdayCardApiService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton

@@ -1,9 +1,8 @@
-package org.bonal.birthdaycard.component
+package org.bonal.birthdaycard.presentation.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import com.google.android.exoplayer2.MediaItem

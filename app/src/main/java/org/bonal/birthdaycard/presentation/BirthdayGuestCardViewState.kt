@@ -1,6 +1,6 @@
 package org.bonal.birthdaycard.presentation
 
-import org.bonal.birthdaycard.component.GuestCardAction
+import org.bonal.birthdaycard.presentation.component.GuestCardAction
 
 data class BirthdayGuestCardViewState(
     val name: String,

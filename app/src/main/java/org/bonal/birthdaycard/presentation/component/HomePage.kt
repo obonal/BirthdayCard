@@ -1,4 +1,4 @@
-package org.bonal.birthdaycard.component
+package org.bonal.birthdaycard.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.chrisbanes.accompanist.coil.CoilImage
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.model.BirthdayHost
-import org.bonal.birthdaycard.ui.theme.BirthdayCardTheme
+import org.bonal.birthdaycard.data.model.BirthdayHost
 import org.bonal.birthdaycard.presentation.BirthdayGuestCardViewState
 import org.bonal.birthdaycard.presentation.BirthdayViewModel
+import org.bonal.birthdaycard.presentation.theme.BirthdayCardTheme
 
 @Composable
 fun HomePage(viewModel: BirthdayViewModel, navigateToMemories: () -> Unit) {
@@ -43,7 +43,7 @@ fun HomePage(viewModel: BirthdayViewModel, navigateToMemories: () -> Unit) {
                         title = { Text(text = title) }
                     )
                 },
-                bodyContent = {
+                content = {
                     BirthdayFeed(
                         viewModel = viewModel,
                         navigateToMemories = navigateToMemories
@@ -66,7 +66,7 @@ private fun BirthdayFeed(
     val galleryButtonLabel: String? by viewModel.galleryButtonLabel.observeAsState()
     val birthdayCardBackground: String? by viewModel.birthdayCardBackground.observeAsState()
 
-    rememberScrollState(0f)
+    rememberScrollState(0)
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -98,8 +98,8 @@ private fun BirthdayCardHeader(
         Modifier
             .padding(8.dp)
             .wrapContentHeight()
-            .preferredHeightIn(200.dp, 380.dp)
-            .preferredWidthIn(300.dp, 600.dp)
+            .heightIn(200.dp, 380.dp)
+            .widthIn(300.dp, 600.dp)
             .fillMaxWidth(),
         elevation = 8.dp,
         contentColor = MaterialTheme.colors.onPrimary
@@ -125,7 +125,7 @@ private fun BirthdayCardHeader(
                         Row(
                             modifier = Modifier
                                 .weight(1f, true)
-                                .preferredHeight(0.dp),
+                                .height(0.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             BirthdayHeaderMessage(message)
@@ -221,7 +221,7 @@ private fun HostSection(birthdayHost: BirthdayHost?) {
 @Composable
 private fun HostHeroImage(birthdayHost: BirthdayHost) {
     val imageModifier = Modifier
-        .preferredSize(100.dp, 100.dp)
+        .size(100.dp, 100.dp)
         .clip(CircleShape)
     birthdayHost.pictureUrl?.let {
         CoilImage(
