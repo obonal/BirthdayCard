@@ -10,9 +10,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.bonal.birthdaycard.R
-import org.bonal.birthdaycard.presentation.theme.BirthdayCardTheme
 import org.bonal.birthdaycard.presentation.BirthdayMemoriesViewModel
 import org.bonal.birthdaycard.presentation.MemoryCardViewState
+import org.bonal.birthdaycard.presentation.theme.BirthdayCardTheme
 
 @Composable
 fun GalleryView(viewModel: BirthdayMemoriesViewModel) {

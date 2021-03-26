@@ -77,16 +77,16 @@ dependencies {
     implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecyle_runtime_version"
+    implementation "com.google.accompanist:accompanist-coil:$accompanist_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
     implementation "com.squareup.retrofit2:converter-moshi:$moshi_version"
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanist_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

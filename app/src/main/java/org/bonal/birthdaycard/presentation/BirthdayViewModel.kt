@@ -25,8 +25,8 @@ class BirthdayViewModel @Inject constructor(
     private val _birthdayCardMessage = MutableLiveData<String>()
     val birthdayCardMessage: LiveData<String> = _birthdayCardMessage
 
-    private val _galleryButtonLabel = MutableLiveData<String>()
-    val galleryButtonLabel: LiveData<String> = _galleryButtonLabel
+    private val _galleryButtonLabel = MutableLiveData<String?>()
+    val galleryButtonLabel: LiveData<String?> = _galleryButtonLabel
 
     private val _birthdayCardBackground = MutableLiveData<String>()
     val birthdayCardBackground: LiveData<String> = _birthdayCardBackground
