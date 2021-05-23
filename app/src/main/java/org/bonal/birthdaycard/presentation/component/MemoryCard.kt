@@ -80,6 +80,7 @@ private fun MediaCard(memory: MemoryCardViewState) {
     Column(
         modifier = Modifier
             .padding(16.dp)
+            .heightIn(300.dp, 400.dp)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -103,7 +104,6 @@ private fun VideoMemory(memory: MemoryCardViewState.VideoCardState) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
     ) {
         VideoPlayer(videoUrl = memory.videoUrl, autoPlay = false)
     }
