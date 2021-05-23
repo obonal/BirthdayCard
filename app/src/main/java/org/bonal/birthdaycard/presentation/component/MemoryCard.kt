@@ -1,5 +1,6 @@
 package org.bonal.birthdaycard.presentation.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -10,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
 import org.bonal.birthdaycard.presentation.MemoryCardViewState
 
 @Composable
@@ -110,11 +111,12 @@ private fun VideoMemory(memory: MemoryCardViewState.VideoCardState) {
 
 @Composable
 private fun ImageMemory(imageUrl: String) {
-    CoilImage(
+    val painter = rememberCoilPainter(imageUrl)
+    Image(
+        painter = painter,
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp)
             .fillMaxSize(),
-        data = imageUrl,
         contentDescription = null,
         contentScale = ContentScale.Inside,
         alignment = Alignment.Center

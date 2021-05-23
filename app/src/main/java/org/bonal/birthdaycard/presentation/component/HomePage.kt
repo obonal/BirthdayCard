@@ -1,5 +1,6 @@
 package org.bonal.birthdaycard.presentation.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +22,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.imageloading.ImageLoadState
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.data.model.BirthdayHost
 import org.bonal.birthdaycard.presentation.BirthdayGuestCardViewState
@@ -182,10 +184,10 @@ private fun MemoriesButton(buttonLabel: String?, navigateToMemories: () -> Unit)
 @Composable
 private fun CardBackgroundImage(backgroundImage: String?) {
     if (backgroundImage.isNullOrBlank()) return
-    CoilImage(
-        modifier = Modifier
-            .fillMaxSize(),
-        data = backgroundImage,
+    val painter = rememberCoilPainter(backgroundImage)
+    Image(
+        painter = painter,
+        modifier = Modifier.fillMaxSize(),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         alignment = Alignment.Center
@@ -224,23 +226,28 @@ private fun HostHeroImage(birthdayHost: BirthdayHost) {
         .size(100.dp, 100.dp)
         .clip(CircleShape)
     birthdayHost.pictureUrl?.let {
-        CoilImage(
-            data = it,
+        val painter = rememberCoilPainter(it)
+        Image(
+            painter = painter,
             modifier = imageModifier,
             contentDescription = birthdayHost.name,
             contentScale = ContentScale.Crop,
-            loading = {
+        )
+        when (painter.loadState) {
+            is ImageLoadState.Loading -> {
+                // Display a circular progress indicator whilst loading
                 Box(Modifier.fillMaxSize()) {
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
                 }
-            },
-            error = {
+            }
+            is ImageLoadState.Error -> {
                 PlaceHolderImage(
                     modifier = imageModifier,
                     tintColor = MaterialTheme.colors.onPrimary
                 )
             }
-        )
+            else -> Unit
+        }
     } ?: PlaceHolderImage(imageModifier, tintColor = MaterialTheme.colors.onPrimary)
 }
 

@@ -1,5 +1,6 @@
 package org.bonal.birthdaycard.presentation.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -15,7 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.imageloading.ImageLoadState
 import org.bonal.birthdaycard.R
 import org.bonal.birthdaycard.presentation.BirthdayGuestCardViewState
 
@@ -46,24 +48,29 @@ fun BirthdayGuestCard(
                 .clip(CircleShape)
             Row(verticalAlignment = Alignment.Top) {
                 cardViewState.pictureUrl?.let {
-                    CoilImage(
-                        data = cardViewState.pictureUrl,
+                    val painter = rememberCoilPainter(it)
+                    Image(
+                        painter = painter,
                         contentDescription = cardViewState.name,
                         modifier = imageModifier,
                         contentScale = ContentScale.Crop,
-                        loading = {
+                    )
+                    when (painter.loadState) {
+                        is ImageLoadState.Loading -> {
+                            // Display a circular progress indicator whilst loading
                             Box(Modifier.fillMaxSize()) {
                                 CircularProgressIndicator(Modifier.align(Alignment.Center))
                             }
-                        },
-                        error = {
+                        }
+                        is ImageLoadState.Error -> {
                             PlaceHolderImage(
                                 modifier = imageModifier,
                                 vectorIconRes = R.drawable.ic_guest,
                                 contentDescription = cardViewState.name
                             )
                         }
-                    )
+                        else -> Unit
+                    }
                 } ?: PlaceHolderImage(imageModifier, R.drawable.ic_guest)
                 Column {
                     Text(cardViewState.name, style = MaterialTheme.typography.h6)
@@ -74,7 +81,9 @@ fun BirthdayGuestCard(
                 }
             }
             if (expandedState.value) {
-                Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)) {
                     VideoPlayer(videoUrl = cardViewState.video!!, autoPlay = true)
                 }
             }
