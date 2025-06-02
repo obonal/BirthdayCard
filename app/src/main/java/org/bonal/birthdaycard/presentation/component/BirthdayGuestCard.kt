@@ -83,7 +83,8 @@ fun BirthdayGuestCard(
             if (expandedState.value) {
                 Box(modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp)) {
+                    .height(300.dp)
+                    .testTag("VideoPlayer")) { // Added testTag here
                     VideoPlayer(videoUrl = cardViewState.video!!, autoPlay = true)
                 }
             }
