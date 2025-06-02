@@ -104,6 +104,7 @@ private fun VideoMemory(memory: MemoryCardViewState.VideoCardState) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .testTag("MemoryCardVideoPlayer") // Added testTag
     ) {
         VideoPlayer(videoUrl = memory.videoUrl, autoPlay = false)
     }
@@ -116,7 +117,8 @@ private fun ImageMemory(imageUrl: String) {
         painter = painter,
         modifier = Modifier
             .padding(top = 8.dp, bottom = 8.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .testTag("MemoryCardPhoto"), // Added testTag
         contentDescription = null,
         contentScale = ContentScale.Inside,
         alignment = Alignment.Center
